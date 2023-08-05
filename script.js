@@ -29,12 +29,35 @@ function execOperation(num1, num2, operation) {
 }
 
 //only for numbers and operators
+// function updateDisplay(num1String, operation, num2String) {
+//   document.querySelector("#number1").textContent = num1String;
+//   if (operation)
+//     document.querySelector("#operator").textContent = document.querySelector(
+//       `.operators button#${operation.name}`
+//     ).textContent;
+//   document.querySelector("#number2").textContent = num2String;
+// }
 function updateDisplay(num1String, operation, num2String) {
   document.querySelector("#number1").textContent = num1String;
-  if (operation)
-    document.querySelector("#operator").textContent = document.querySelector(
-      `.operators button#${operation.name}`
-    ).textContent;
+  let operatorSymbol;
+
+
+  if (operation){
+
+  switch(operation.name){
+    case "add": operatorSymbol= '+'
+        break;
+    case "subtract": operatorSymbol= '-'
+        break;
+    case "multiply": operatorSymbol= 'x'
+        break;
+    case "divide": operatorSymbol= '➗'
+        break;
+    }
+    console.log(operatorSymbol);
+
+    document.querySelector("#operator").textContent = operatorSymbol;}
+
   document.querySelector("#number2").textContent = num2String;
 }
 
@@ -94,34 +117,29 @@ document
     execOperation(num1String, num2String, operation)
   );
 
+
+
+const test = document.querySelector("#add").id;
+
+document.querySelector("#add").addEventListener("click", () => {
+  if (!operation) operation = add;
+});
+document.querySelector("#subtract").addEventListener("click", () => {
+  if (!operation) operation = subtract;
+});
+document.querySelector("#multiply").addEventListener("click", () => {
+  if (!operation) operation = multiply;
+});
+document.querySelector("#divide").addEventListener("click", () => {
+  if (!operation) operation = divide;
+});
+
 //Operations Eventlistener
 document
   .querySelectorAll(".row.operators button")
   .forEach((btn) =>
-    btn.addEventListener("click", () =>
-      updateDisplay(num1String, operation, num2String)
+    btn.addEventListener("click", () =>{
+      updateDisplay(num1String, operation, num2String)}
     )
   );
 //TODO:
-
-// const test = document.querySelector('#add').id
-document
-  .querySelectorAll("#add, #subtract, #multiply, #divide")
-  .forEach((obj) =>
-    obj.addEventListener("click", () => {
-      if (!operation) operation = obj.id;
-    })
-  );
-
-// document.querySelector("#add").addEventListener("click", () => {
-//   operation = add;
-// });
-// document.querySelector("#subtract").addEventListener("click", () => {
-//   operation = subtract;
-// });
-// document.querySelector("#multiply").addEventListener("click", () => {
-//   operation = multiply;
-// });
-// document.querySelector("#divide").addEventListener("click", () => {
-//   operation = divide;
-// });
