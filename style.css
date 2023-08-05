@@ -1,0 +1,21 @@
+.display#main{
+    display:flex;
+    border: yellow 2px solid;
+    max-width: 150px; /*FIXME:*/
+    margin: 0 0 5px 0;
+}
+.display#main .display{
+    margin: 0 5px;
+}
+.calc-content{
+    background-color: black;
+    max-width: 150px; /*FIXME:*/
+    padding: 5px;
+}
+
+button{
+    margin: 1px;
+}
+
+
+
