@@ -53,19 +53,22 @@ function trackOperations(buttonInput) {
 }
 
 //Variables for Operation & Numbers
-let num1;
-let operation;
-let num2;
-let operationDone = false;
-function execOperation(num1, num2, operation) {
-  //FIXME:
-  num1 = parseFloat(num1);
-  num2 = parseFloat(num2);
-  console.log(operation(num1, num2));
-  isNum2 = false;
-  operationDone = true;
-  return operation(num1, num2);
+/** @param {Array} calcArray */
+function execOperation(calcArray) {
+    
+    //basically my own version of the reduce method
+    while(calcArray.length > 1){
+    //perform operation for the first 3 elements of calcArray
+    // operation(element1, element2)
+     const result= calcArray[1](calcArray[0],calcArray[2])
+    //result becomes first element of array
+    calcArray[2] = result
+    calcArray.splice(0,2)
+        }
+        return calcArray
+    
 }
+console.log(execOperation([1,add,3,multiply,4]));
 
 /** @param {Array} calcArray */
 function updateDisplay(calcArray) {
@@ -96,7 +99,6 @@ function updateDisplay(calcArray) {
   const calcArrayString = calcArraySymbols.join(' ')
   document.querySelector('.display#main').textContent = calcArrayString
 }
-updateDisplay([1,add,2,add,3,multiply])
 
 function clearDisplay() {
   num1String = "";
