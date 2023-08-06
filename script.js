@@ -15,15 +15,13 @@ function multiply(a, b) {
 function divide(a, b) {
   return a / b;
 }
-console.log(!isNaN(parseFloat('')));
 
 //takes in input from button. tracks all numbers and operations in an array
-const calcArray = [""];
+let calcArray = [""];
 function takeInput(buttonInput, calcArray) {
-  //FIXME: if function exists in the last slot of array, replace it
 
   if (typeof buttonInput === "function") {
-    //Replace last index if last index isn't a number (a function or '' empty string)
+    //Replace last index if last index isn't a number (meaning it's a function or '' empty string)
     if(!!isNaN(parseFloat(calcArray.slice(-1)))){
       calcArray[calcArray.length - 2] = buttonInput 
   
@@ -34,7 +32,6 @@ function takeInput(buttonInput, calcArray) {
   } else if (typeof +buttonInput === "number") {
     calcArray[calcArray.length - 1] += buttonInput;
   }
-  console.log(calcArray);
 
   return;
   // }}
@@ -78,17 +75,17 @@ function updateDisplay(calcArray) {
     }
     return val;
   });
+  if(calcArray[0] === "") {document.querySelector(".display#main").innerHTML= "&nbsp"}
+else{
   const calcArrayString = calcArraySymbols.join(" ");
-  document.querySelector(".display#main").textContent = calcArrayString;
+//TODO: DONT let dIV COLLAPSE
+  document.querySelector(".display#main").textContent = calcArrayString
+}
 }
 
 function clearDisplay() {
-  num1String = "";
-  num2String = "";
-  operation = null;
-  document.querySelector("#number1").textContent = num1String;
-  document.querySelector("#operator").textContent = "";
-  document.querySelector("#number2").textContent = num2String;
+  calcArray = [""]
+  updateDisplay(calcArray)
 }
 
 //Button Event Listeners
