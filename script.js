@@ -15,17 +15,26 @@ function multiply(a, b) {
 function divide(a, b) {
   return a / b;
 }
+console.log(!isNaN(parseFloat('')));
+
 //takes in input from button. tracks all numbers and operations in an array
 const calcArray = [""];
-let currentPos;
 function takeInput(buttonInput, calcArray) {
+  //FIXME: if function exists in the last slot of array, replace it
+
   if (typeof buttonInput === "function") {
+    //Replace last index if last index isn't a number (a function or '' empty string)
+    if(!!isNaN(parseFloat(calcArray.slice(-1)))){
+      calcArray[calcArray.length - 2] = buttonInput 
+  
+    }else{
     calcArray.push(buttonInput);
     calcArray.push("");
-    currentPos = calcArray.length - 1;
+  }
   } else if (typeof +buttonInput === "number") {
     calcArray[calcArray.length - 1] += buttonInput;
   }
+  console.log(calcArray);
 
   return;
   // }}
@@ -50,7 +59,7 @@ function updateDisplay(calcArray) {
   let operatorSymbol;
   //swap all the functions to displayable symbols
   const calcArraySymbols = calcArray.map((val, index, array) => {
-    if (index !== 0 && index % 2 !== 0) {
+    if (typeof val === 'function') {
       switch (val.name) {
         case "add":
           operatorSymbol = "+";
@@ -69,7 +78,6 @@ function updateDisplay(calcArray) {
     }
     return val;
   });
-  console.log(calcArraySymbols);
   const calcArrayString = calcArraySymbols.join(" ");
   document.querySelector(".display#main").textContent = calcArrayString;
 }
@@ -101,8 +109,11 @@ numberKeys.forEach((numberKey) =>
 //Equals button
 document
   .querySelector("button#equals")
-  .addEventListener("click", () =>
-    execOperation(calcArray)
+  .addEventListener("click", () =>{
+    execOperation(calcArray);
+    updateDisplay(calcArray)
+  
+  }
   );
 
 const test = document.querySelector("#add").id;
