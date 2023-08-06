@@ -45,7 +45,7 @@ function execOperation(calcArray) {
   let result = calcArray[1](+calcArray[0], +calcArray[2]);
   //result becomes first element of array
   if (!isFinite(result)) return false;
-  if(result%1 != 0) result = result.toFixed(2)
+  if(result%1 != 0) result = result.toFixed(6)
   calcArray[2] = result;
   calcArray.splice(0, 2);
   return true
@@ -62,16 +62,16 @@ function updateDisplay(calcArray) {
     if (typeof val === "function") {
       switch (val.name) {
         case "add":
-          operatorSymbol = "+";
+          operatorSymbol = "＋";
           break;
         case "subtract":
-          operatorSymbol = "-";
+          operatorSymbol = "﹣";
           break;
         case "multiply":
-          operatorSymbol = "x";
+          operatorSymbol = "×";
           break;
         case "divide":
-          operatorSymbol = "➗";
+          operatorSymbol = "÷";
           break;
       }
       return operatorSymbol;
@@ -132,7 +132,7 @@ document.querySelector("#divide").addEventListener("click", (e) => {
 });
 
 //Operations Eventlistener
-document.querySelectorAll(".row.operators button").forEach((btn) =>
+document.querySelectorAll("button.operator").forEach((btn) =>
   btn.addEventListener("click", () => {
     updateDisplay(calcArray);
   })

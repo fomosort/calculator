@@ -1,20 +1,47 @@
 .display#main{
+    font-size: 40px;
+    font-family: monospace;
     border: yellow 2px solid;
-    max-width: 150px; /*FIXME:*/
-    margin: 0 0 5px 0;
-    min-height: 1pt;
+    max-width: 300px; /*FIXME:*/
+    margin: 0 0 20px 0;
+    padding: 5px 10px;
 }
-.display#main .display{
-    margin: 0 5px;
-}
+
 .calc-content{
     background-color: black;
-    max-width: 150px; /*FIXME:*/
-    padding: 5px;
+    max-width: 300px; /*FIXME:*/
+    padding: 40px 25px;
+    border-radius: 10%;
+}
+.row{
+    display:flex;
+    width:220px;
+    /* background-color: yellow; */
+    gap: 3px;
+}
+
+.row.a {
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
 }
 
 button{
-    margin: 1px;
+    margin: 4px;
+    font-size: 25px;
+    width: 45px;
+    min-width: 45px;
+    height: 45px;
+    border: 3px solid green;
+    border-radius: 50%;
+    padding: 2px;
+}
+button.operator{
+    background-color: orange;
+}
+
+button#clear{
+    width: 50px;
 }
 
 
