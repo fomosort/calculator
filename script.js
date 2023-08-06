@@ -19,9 +19,6 @@ function divide(a, b) {
 const calcArray = [""];
 let currentPos;
 function takeInput(buttonInput, calcArray) {
-  ;
-  //check whether number/operator can be accepted
-  let inputShouldBe;
   if (typeof buttonInput === "function") {
     calcArray.push(buttonInput);
     calcArray.push("");
@@ -29,36 +26,8 @@ function takeInput(buttonInput, calcArray) {
   } else if (typeof +buttonInput === "number") {
     calcArray[calcArray.length - 1] += buttonInput;
   }
-  //Even indexes hold numbers
-  // if (currentPos === 0 || currentPos % 2 === 0) {
-  //   inputShouldBe = "number";
-  // } else {
-  //   inputShouldBe = "operator";
-  // }
 
-  // if (inputShouldBe === "number") {
-  //   if (typeof +buttonInput != "number") {
-  //     console.log("input is not a number when it should be");
-  //     return;
-  //   }
-  //  else {
-  //Else since it's a  number, add to string
-
-  // ;   console.log(calcArray);
-  //     return;
-  //   }
-  // }
-
-  //   if (inputShouldBe === "operator") {
-  //     if (typeof buttonInput != "function") {
-  //       console.log("input is not a function when it should be");
-  //       return;
-  //     }
-  //  else {
-  //Since it's an operator, push element to Array, put operator inside, push another array
-  // calcArray.push('')
-
-  console.log(calcArray);
+  console.table(calcArray);
   return;
   // }}
 }
@@ -66,16 +35,14 @@ function takeInput(buttonInput, calcArray) {
 //Variables for Operation & Numbers
 /** @param {Array} calcArray */
 function execOperation(calcArray) {
-  //FIXME: potential error handling
+  //TODO: potential error handling
   //basically my own version of the reduce method
-  while (calcArray.length > 1) {
     //perform operation for the first 3 elements of calcArray
     // operation(element1, element2)
-    const tempResult = calcArray[1](calcArray[0], calcArray[2]);
+    const tempResult = calcArray[1](+calcArray[0], +calcArray[2]);
     //result becomes first element of array
     calcArray[2] = tempResult;
     calcArray.splice(0, 2);
-  }
   return calcArray[0];
 }
 
@@ -134,7 +101,7 @@ numberKeys.forEach((numberKey) =>
 document
   .querySelector("button#equals")
   .addEventListener("click", () =>
-    execOperation(num1String, num2String, operation)
+    execOperation(calcArray)
   );
 
 const test = document.querySelector("#add").id;
@@ -155,6 +122,6 @@ document.querySelector("#divide").addEventListener("click", (e) => {
 //Operations Eventlistener
 document.querySelectorAll(".row.operators button").forEach((btn) =>
   btn.addEventListener("click", () => {
-    updateDisplay(num1String, operation, num2String);
+    updateDisplay(calcArray);
   })
 );
