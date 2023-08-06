@@ -19,16 +19,14 @@ function divide(a, b) {
 //takes in input from button. tracks all numbers and operations in an array
 let calcArray = [""];
 function takeInput(buttonInput, calcArray) {
-
   if (typeof buttonInput === "function") {
     //Replace last index if last index isn't a number (meaning it's a function or '' empty string)
-    if(!!isNaN(parseFloat(calcArray.slice(-1)))){
-      calcArray[calcArray.length - 2] = buttonInput 
-  
-    }else{
-    calcArray.push(buttonInput);
-    calcArray.push("");
-  }
+    if (!!isNaN(parseFloat(calcArray.slice(-1)))) {
+      calcArray[calcArray.length - 2] = buttonInput;
+    } else {
+      calcArray.push(buttonInput);
+      calcArray.push("");
+    }
   } else if (typeof +buttonInput === "number") {
     calcArray[calcArray.length - 1] += buttonInput;
   }
@@ -42,21 +40,23 @@ function takeInput(buttonInput, calcArray) {
 function execOperation(calcArray) {
   //TODO: potential error handling
   //basically my own version of the reduce method
-    //perform operation for the first 3 elements of calcArray
-    // operation(element1, element2)
-    const tempResult = calcArray[1](+calcArray[0], +calcArray[2]);
-    //result becomes first element of array
-    calcArray[2] = tempResult;
-    calcArray.splice(0, 2);
+  //perform operation for the first 3 elements of calcArray
+  // operation(element1, element2)
+  const tempResult = calcArray[1](+calcArray[0], +calcArray[2]);
+  //result becomes first element of array
+  if (!isFinite(tempResult)) return false;
+  calcArray[2] = tempResult;
+  calcArray.splice(0, 2);
   return calcArray[0];
 }
 
 /** @param {Array} calcArray */
 function updateDisplay(calcArray) {
+  
   let operatorSymbol;
   //swap all the functions to displayable symbols
   const calcArraySymbols = calcArray.map((val, index, array) => {
-    if (typeof val === 'function') {
+    if (typeof val === "function") {
       switch (val.name) {
         case "add":
           operatorSymbol = "+";
@@ -75,17 +75,17 @@ function updateDisplay(calcArray) {
     }
     return val;
   });
-  if(calcArray[0] === "") {document.querySelector(".display#main").innerHTML= "&nbsp"}
-else{
-  const calcArrayString = calcArraySymbols.join(" ");
-//TODO: DONT let dIV COLLAPSE
-  document.querySelector(".display#main").textContent = calcArrayString
-}
+  if (calcArray[0] === "") {
+    document.querySelector(".display#main").innerHTML = "&nbsp";
+  } else {
+    const calcArrayString = calcArraySymbols.join(" ");
+    document.querySelector(".display#main").textContent = calcArrayString;
+  }
 }
 
 function clearDisplay() {
-  calcArray = [""]
-  updateDisplay(calcArray)
+  calcArray = [""];
+  updateDisplay(calcArray);
 }
 
 //Button Event Listeners
@@ -104,14 +104,14 @@ numberKeys.forEach((numberKey) =>
   })
 );
 //Equals button
-document
-  .querySelector("button#equals")
-  .addEventListener("click", () =>{
-    execOperation(calcArray);
+document.querySelector("button#equals").addEventListener("click", () => {
+  if (execOperation(calcArray)) {
+    updateDisplay(calcArray);
+  } else {
     updateDisplay(calcArray)
-  
+    document.querySelector(".display#main").textContent = "invalid result";
   }
-  );
+});
 
 const test = document.querySelector("#add").id;
 
