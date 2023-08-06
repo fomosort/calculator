@@ -27,7 +27,6 @@ function takeInput(buttonInput, calcArray) {
     calcArray[calcArray.length - 1] += buttonInput;
   }
 
-  console.table(calcArray);
   return;
   // }}
 }
@@ -89,15 +88,17 @@ document.querySelector("button#clear").addEventListener("click", clearDisplay);
 
 //FIXME:ONE function that checks valid button clicks
 
+//= Buttons
+
 //Number buttons
 const numberKeys = document.querySelectorAll(".number");
 numberKeys.forEach((numberKey) =>
   numberKey.addEventListener("click", (e) => {
     takeInput(e.target.id, calcArray);
+    updateDisplay(calcArray);
   })
 );
-
-//= Button
+//Equals button
 document
   .querySelector("button#equals")
   .addEventListener("click", () =>
