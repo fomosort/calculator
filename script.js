@@ -25,31 +25,33 @@ function execOperation(num1, num2, operation) {
   num1 = parseFloat(num1);
   num2 = parseFloat(num2);
   console.log(operation(num1, num2));
-  isNum2 = false
+  isNum2 = false;
   operationDone = true;
   return operation(num1, num2);
 }
-
 
 function updateDisplay(num1String, operation, num2String) {
   document.querySelector("#number1").textContent = num1String;
   let operatorSymbol;
 
-
-  if (operation){
-
-  switch(operation.name){
-    case "add": operatorSymbol= '+'
+  if (operation) {
+    switch (operation.name) {
+      case "add":
+        operatorSymbol = "+";
         break;
-    case "subtract": operatorSymbol= '-'
+      case "subtract":
+        operatorSymbol = "-";
         break;
-    case "multiply": operatorSymbol= 'x'
+      case "multiply":
+        operatorSymbol = "x";
         break;
-    case "divide": operatorSymbol= '➗'
+      case "divide":
+        operatorSymbol = "➗";
         break;
     }
 
-    document.querySelector("#operator").textContent = operatorSymbol;}
+    document.querySelector("#operator").textContent = operatorSymbol;
+  }
 
   document.querySelector("#number2").textContent = num2String;
 }
@@ -64,18 +66,65 @@ function clearDisplay() {
 }
 document.querySelector("button#clear").addEventListener("click", clearDisplay);
 
+//TODO: Track place in array
+//Rules for array: last place in array must be a number
+//array[0] is number
+//array[1, 3, 5, 7, 9] must be operators
+
+//last place in array = array.length -1
+
+//tracks all numbers and operations in an array
+const calcArray = [];
+let currentPos;
+function trackOperations(buttonInput) {
+  currentPos = calcArray.length();
+  //check whether number/operator can be accepted
+  let inputShouldBe;
+  //Even indexes hold numbers
+  if (currentPos === 0 || currentPos % 2 === 0) {
+    inputShouldBe = "number";
+  } else {
+    inputShouldBe = "operator";
+  }
+
+  if (inputShouldBe === "number") {
+    if (typeof +buttonInput != "number") {
+      console.log("input is not a number when it should be");
+      return;
+    }
+  } else {
+    calcArray.push(buttonInput);
+    currentPos = calcArray.length();
+    return
+  }
+
+  if (inputShouldBe === "operator") {
+    if (typeof buttonInput != "function") {
+      console.log("input is not a function when it should be");
+      return;
+    }
+  } else {
+    calcArray.push(buttonInput);
+    currentPos = calcArray.length();
+    return
+  }
+}
+
+//Start with array with 1 empty string array[0]
+//when button is clicked, if it's an  operator button, do nothing
+
+//if number, create temp string, extend string on every click
+
+//update every click
+//update: display the whole array, parsed
+
 //Event Listeners
-//Numbers
-let num1String = "";
-let num2String = "";
-//Switch to Num2?
-let isNum2 = false;
 
 const numberKeys = document.querySelectorAll(".number");
 numberKeys.forEach((numberKey) =>
   numberKey.addEventListener("click", (e) => {
-    if(operationDone) clearDisplay()
-    
+    if (operationDone) clearDisplay();
+
     if (!isNum2) {
       num1String += e.target.id;
       updateDisplay(num1String, operation, num2String);
@@ -110,8 +159,6 @@ document
     execOperation(num1String, num2String, operation)
   );
 
-
-
 const test = document.querySelector("#add").id;
 
 document.querySelector("#add").addEventListener("click", () => {
@@ -128,11 +175,9 @@ document.querySelector("#divide").addEventListener("click", () => {
 });
 
 //Operations Eventlistener
-document
-  .querySelectorAll(".row.operators button")
-  .forEach((btn) =>
-    btn.addEventListener("click", () =>{
-      updateDisplay(num1String, operation, num2String)}
-    )
-  );
+document.querySelectorAll(".row.operators button").forEach((btn) =>
+  btn.addEventListener("click", () => {
+    updateDisplay(num1String, operation, num2String);
+  })
+);
 //TODO:
