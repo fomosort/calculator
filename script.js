@@ -20,23 +20,17 @@ function divide(a, b) {
 let num1;
 let operation;
 let num2;
-
+let operationDone = false;
 function execOperation(num1, num2, operation) {
   num1 = parseFloat(num1);
   num2 = parseFloat(num2);
   console.log(operation(num1, num2));
+  isNum2 = false
+  operationDone = true;
   return operation(num1, num2);
 }
 
-//only for numbers and operators
-// function updateDisplay(num1String, operation, num2String) {
-//   document.querySelector("#number1").textContent = num1String;
-//   if (operation)
-//     document.querySelector("#operator").textContent = document.querySelector(
-//       `.operators button#${operation.name}`
-//     ).textContent;
-//   document.querySelector("#number2").textContent = num2String;
-// }
+
 function updateDisplay(num1String, operation, num2String) {
   document.querySelector("#number1").textContent = num1String;
   let operatorSymbol;
@@ -54,7 +48,6 @@ function updateDisplay(num1String, operation, num2String) {
     case "divide": operatorSymbol= '➗'
         break;
     }
-    console.log(operatorSymbol);
 
     document.querySelector("#operator").textContent = operatorSymbol;}
 
@@ -81,13 +74,13 @@ let isNum2 = false;
 const numberKeys = document.querySelectorAll(".number");
 numberKeys.forEach((numberKey) =>
   numberKey.addEventListener("click", (e) => {
+    if(operationDone) clearDisplay()
+    
     if (!isNum2) {
       num1String += e.target.id;
-      console.log(num1String);
       updateDisplay(num1String, operation, num2String);
     } else {
       num2String += e.target.id;
-      console.log(num2String);
       updateDisplay(num1String, operation, num2String);
     }
   })
