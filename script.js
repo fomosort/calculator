@@ -42,13 +42,16 @@ function execOperation(calcArray) {
   //basically my own version of the reduce method
   //perform operation for the first 3 elements of calcArray
   // operation(element1, element2)
-  const tempResult = calcArray[1](+calcArray[0], +calcArray[2]);
+  let result = calcArray[1](+calcArray[0], +calcArray[2]);
   //result becomes first element of array
-  if (!isFinite(tempResult)) return false;
-  calcArray[2] = tempResult;
+  if (!isFinite(result)) return false;
+  if(result%1 != 0) result = result.toFixed(2)
+  calcArray[2] = result;
   calcArray.splice(0, 2);
-  return calcArray[0];
+  return true
+  
 }
+
 
 /** @param {Array} calcArray */
 function updateDisplay(calcArray) {
