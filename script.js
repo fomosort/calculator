@@ -15,60 +15,69 @@ function multiply(a, b) {
 function divide(a, b) {
   return a / b;
 }
-//tracks all numbers and operations in an array
-const calcArray = [];
+//takes in input from button. tracks all numbers and operations in an array
+const calcArray = [""];
 let currentPos;
-function trackOperations(buttonInput) {
-  currentPos = calcArray.length();
+function takeInput(buttonInput, calcArray) {
+  ;
   //check whether number/operator can be accepted
   let inputShouldBe;
+  if (typeof buttonInput === "function") {
+    calcArray.push(buttonInput);
+    calcArray.push("");
+    currentPos = calcArray.length - 1;
+  } else if (typeof +buttonInput === "number") {
+    calcArray[calcArray.length - 1] += buttonInput;
+  }
   //Even indexes hold numbers
-  if (currentPos === 0 || currentPos % 2 === 0) {
-    inputShouldBe = "number";
-  } else {
-    inputShouldBe = "operator";
-  }
+  // if (currentPos === 0 || currentPos % 2 === 0) {
+  //   inputShouldBe = "number";
+  // } else {
+  //   inputShouldBe = "operator";
+  // }
 
-  if (inputShouldBe === "number") {
-    if (typeof +buttonInput != "number") {
-      console.log("input is not a number when it should be");
-      return;
-    }
-  } else {
-    calcArray.push(buttonInput);
-    currentPos = calcArray.length();
-    return;
-  }
+  // if (inputShouldBe === "number") {
+  //   if (typeof +buttonInput != "number") {
+  //     console.log("input is not a number when it should be");
+  //     return;
+  //   }
+  //  else {
+  //Else since it's a  number, add to string
 
-  if (inputShouldBe === "operator") {
-    if (typeof buttonInput != "function") {
-      console.log("input is not a function when it should be");
-      return;
-    }
-  } else {
-    calcArray.push(buttonInput);
-    currentPos = calcArray.length();
-    return;
-  }
+  // ;   console.log(calcArray);
+  //     return;
+  //   }
+  // }
+
+  //   if (inputShouldBe === "operator") {
+  //     if (typeof buttonInput != "function") {
+  //       console.log("input is not a function when it should be");
+  //       return;
+  //     }
+  //  else {
+  //Since it's an operator, push element to Array, put operator inside, push another array
+  // calcArray.push('')
+
+  console.log(calcArray);
+  return;
+  // }}
 }
 
 //Variables for Operation & Numbers
 /** @param {Array} calcArray */
 function execOperation(calcArray) {
-    
-    //basically my own version of the reduce method
-    while(calcArray.length > 1){
+  //FIXME: potential error handling
+  //basically my own version of the reduce method
+  while (calcArray.length > 1) {
     //perform operation for the first 3 elements of calcArray
     // operation(element1, element2)
-     const result= calcArray[1](calcArray[0],calcArray[2])
+    const tempResult = calcArray[1](calcArray[0], calcArray[2]);
     //result becomes first element of array
-    calcArray[2] = result
-    calcArray.splice(0,2)
-        }
-        return calcArray
-    
+    calcArray[2] = tempResult;
+    calcArray.splice(0, 2);
+  }
+  return calcArray[0];
 }
-console.log(execOperation([1,add,3,multiply,4]));
 
 /** @param {Array} calcArray */
 function updateDisplay(calcArray) {
@@ -90,14 +99,13 @@ function updateDisplay(calcArray) {
           operatorSymbol = "➗";
           break;
       }
-      return operatorSymbol
+      return operatorSymbol;
     }
-    return val
-  })
+    return val;
+  });
   console.log(calcArraySymbols);
-  ;
-  const calcArrayString = calcArraySymbols.join(' ')
-  document.querySelector('.display#main').textContent = calcArrayString
+  const calcArrayString = calcArraySymbols.join(" ");
+  document.querySelector(".display#main").textContent = calcArrayString;
 }
 
 function clearDisplay() {
@@ -108,59 +116,20 @@ function clearDisplay() {
   document.querySelector("#operator").textContent = "";
   document.querySelector("#number2").textContent = num2String;
 }
+
+//Button Event Listeners
 document.querySelector("button#clear").addEventListener("click", clearDisplay);
 
-//TODO: Track place in array
-//Rules for array: last place in array must be a number
-//array[0] is number
-//array[1, 3, 5, 7, 9] must be operators
+//FIXME:ONE function that checks valid button clicks
 
-//last place in array = array.length -1
-
-//Start with array with 1 empty string array[0]
-//when button is clicked, if it's an  operator button, do nothing
-
-//if number, create temp string, extend string on every click
-
-//update every click
-//update: display the whole array, parsed
-
-//Event Listeners
-
+//Number buttons
 const numberKeys = document.querySelectorAll(".number");
 numberKeys.forEach((numberKey) =>
   numberKey.addEventListener("click", (e) => {
-    if (operationDone) clearDisplay();
-    //FIXME:
-    if (!isNum2) {
-      num1String += e.target.id;
-      updateDisplay(num1String, operation, num2String);
-    } else {
-      num2String += e.target.id;
-      updateDisplay(num1String, operation, num2String);
-    }
+    takeInput(e.target.id, calcArray);
   })
 );
 
-//Clicking operator buttons toggles between Num1 and Num2 (if conditions
-//met)
-document.querySelectorAll(".row.operators, button.row#clear").forEach((btn) =>
-  btn.addEventListener("click", () => {
-    //FIXME:
-
-    //if num2String and op
-    //Case when num1String is Active. If num1String isn't empty and operation are chosen, switch type mode to num2String
-    if (!isNum2 && num1String.length > 0 && operation) {
-      isNum2 = true;
-      console.log({ isNum2 });
-    }
-    //Case when num2String is Active
-    if (isNum2 && num2String.length > 0 && operation) {
-      isNum2 = false;
-      console.log({ isNum2 });
-    }
-  })
-);
 //= Button
 document
   .querySelector("button#equals")
@@ -170,17 +139,17 @@ document
 
 const test = document.querySelector("#add").id;
 
-document.querySelector("#add").addEventListener("click", () => {
-  if (!operation) operation = add;
+document.querySelector("#add").addEventListener("click", (e) => {
+  takeInput(add, calcArray);
 });
-document.querySelector("#subtract").addEventListener("click", () => {
-  if (!operation) operation = subtract;
+document.querySelector("#subtract").addEventListener("click", (e) => {
+  takeInput(subtract, calcArray);
 });
-document.querySelector("#multiply").addEventListener("click", () => {
-  if (!operation) operation = multiply;
+document.querySelector("#multiply").addEventListener("click", (e) => {
+  takeInput(multiply, calcArray);
 });
-document.querySelector("#divide").addEventListener("click", () => {
-  if (!operation) operation = divide;
+document.querySelector("#divide").addEventListener("click", (e) => {
+  takeInput(divide, calcArray);
 });
 
 //Operations Eventlistener
@@ -189,4 +158,3 @@ document.querySelectorAll(".row.operators button").forEach((btn) =>
     updateDisplay(num1String, operation, num2String);
   })
 );
-//TODO:
