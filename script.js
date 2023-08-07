@@ -19,6 +19,8 @@ function divide(a, b) {
 //takes in input from button. tracks all numbers and operations in an array
 let calcArray = [""];
 function takeInput(buttonInput, calcArray) {
+  playSound();
+
   //Take Backspace as input
   if (buttonInput === "backspace") {
     calcArray[calcArray.length - 1] = calcArray[calcArray.length - 1].slice(
@@ -101,15 +103,21 @@ function clearDisplay() {
   updateDisplay(calcArray);
 }
 
-function addTransition(){
-  this.classList.add("pressed")
+function addTransition() {
+  this.classList.add("pressed");
 }
 
-function removeTransition(e){
+function removeTransition(e) {
   // console.log(e);
-  if(e.propertyName !== 'transform') return;
-  console.log(e.propertyName);
-  this.classList.remove('pressed')
+  if (e.propertyName !== "transform") return;
+  this.classList.remove("pressed");
+}
+
+function playSound() {
+  const randNum = Math.ceil(Math.random() * 4);
+  const sound = document.querySelector(`.sound#a${randNum}`);
+  sound.currentTime = 0;
+  sound.play();
 }
 
 //Button Event Listeners
@@ -143,7 +151,6 @@ document.querySelector("button#equals").addEventListener("click", () => {
   }
 });
 
-
 document.querySelector("#add").addEventListener("click", (e) => {
   takeInput(add, calcArray);
 });
@@ -168,38 +175,38 @@ document.querySelectorAll("button.operator").forEach((btn) =>
   })
 );
 
-const allKeys = document.querySelectorAll('button')
-
+const allKeys = document.querySelectorAll("button");
 
 //Keyboard support
 window.addEventListener("keydown", (e) => {
-  // console.log(e.key);
 
   //Check if key is a supported number
   if (Array.from(numberKeys).some((item) => item.innerHTML === e.key)) {
-    document.querySelector(`#n${e.key}`).classList.add('pressed')
+    document.querySelector(`#n${e.key}`).classList.add("pressed");
     takeInput(e.key, calcArray);
     updateDisplay(calcArray);
   } else {
-  //Check check other keys
+    //Check check other keys
 
     switch (e.key) {
+      
       case ".":
         takeInput(e.key, calcArray);
-        document.querySelector(`#decimal`).classList.add('pressed')
+        document.querySelector(`#decimal`).classList.add("pressed");
         break;
       case "+":
         takeInput(add, calcArray);
-        document.querySelector(`#add`).classList.add('pressed')
+        document.querySelector(`#add`).classList.add("pressed");
         break;
       case "-":
         takeInput(subtract, calcArray);
-        document.querySelector(`#subtract`).classList.add('pressed')
+        document.querySelector(`#subtract`).classList.add("pressed");
 
         break;
       case "=":
       case "Enter":
-        document.querySelector(`#equals`).classList.add('pressed')
+        document.querySelector(`#equals`).classList.add("pressed");
+        playSound();
 
         if (execOperation(calcArray)) {
           updateDisplay(calcArray);
@@ -211,31 +218,35 @@ window.addEventListener("keydown", (e) => {
         break;
       case "/":
         takeInput(divide, calcArray);
-        document.querySelector(`#divide`).classList.add('pressed')
+        document.querySelector(`#divide`).classList.add("pressed");
 
         break;
       case "Backspace":
-        takeInput('backspace', calcArray);
-        document.querySelector(`#backspace`).classList.add('pressed')
+        takeInput("backspace", calcArray);
+        document.querySelector(`#backspace`).classList.add("pressed");
 
         break;
       case "x":
       case "X":
       case "*":
         takeInput(multiply, calcArray);
-        document.querySelector(`#multiply`).classList.add('pressed')
+        document.querySelector(`#multiply`).classList.add("pressed");
         break;
-        case "Escape":
-          document.querySelector(`#ac`).classList.add('pressed')
+      case "Escape":
+        document.querySelector(`#ac`).classList.add("pressed");
+        playSound();
 
-          clearDisplay()
-          break;
+        clearDisplay();
+        break;
     }
     updateDisplay(calcArray);
+
+
   }
 });
 
-allKeys.forEach(key => {
-  key.addEventListener('click', addTransition);
-
-  key.addEventListener('transitionend', removeTransition)})
+allKeys.forEach((key) => {
+  key.addEventListener("click", addTransition);
+  key.addEventListener("click", playSound);
+  key.addEventListener("transitionend", removeTransition);
+});
