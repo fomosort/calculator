@@ -20,9 +20,12 @@ function divide(a, b) {
 let calcArray = [""];
 function takeInput(buttonInput, calcArray) {
   //Take Backspace as input
-  if (buttonInput === 'backspace'){
-    calcArray[calcArray.length - 1] = calcArray[calcArray.length - 1].slice(0,-1)
-    return
+  if (buttonInput === "backspace") {
+    calcArray[calcArray.length - 1] = calcArray[calcArray.length - 1].slice(
+      0,
+      -1
+    );
+    return;
   }
   if (typeof buttonInput === "function") {
     //Replace last index if last index isn't a number (meaning it's a function or '' empty string)
@@ -112,12 +115,12 @@ document.querySelector("button#decimal").addEventListener("click", (e) => {
 
 //Number buttons
 const numberKeys = document.querySelectorAll(".number");
-numberKeys.forEach((numberKey) =>
+numberKeys.forEach((numberKey) => {
   numberKey.addEventListener("click", (e) => {
     takeInput(e.target.id, calcArray);
     updateDisplay(calcArray);
-  })
-);
+  });
+});
 //Equals button
 document.querySelector("button#equals").addEventListener("click", () => {
   if (execOperation(calcArray)) {
@@ -144,7 +147,7 @@ document.querySelector("#divide").addEventListener("click", (e) => {
 });
 //Backspace
 document.querySelector("#backspace").addEventListener("click", (e) => {
-  takeInput('backspace', calcArray);
+  takeInput("backspace", calcArray);
 });
 
 //Operations Eventlistener
@@ -153,3 +156,54 @@ document.querySelectorAll("button.operator").forEach((btn) =>
     updateDisplay(calcArray);
   })
 );
+
+const allKeys = document.getElementsByTagName("button");
+//Keyboard support
+window.addEventListener("keydown", (e) => {
+  // console.log(e.key);
+
+  //Check if key is a supported number
+  if (Array.from(numberKeys).some((item) => item.innerHTML === e.key)) {
+    takeInput(e.key, calcArray);
+    updateDisplay(calcArray);
+  } else {
+  //Check check other keys
+    switch (e.key) {
+      case ".":
+        takeInput(e.key, calcArray);
+        break;
+      case "+":
+        takeInput(add, calcArray);
+        break;
+      case "-":
+        takeInput(subtract, calcArray);
+        break;
+      case "=":
+      case "Enter":
+        if (execOperation(calcArray)) {
+          updateDisplay(calcArray);
+        } else {
+          updateDisplay(calcArray);
+          document.querySelector(".display#main").textContent =
+            "invalid result";
+        }
+        break;
+      case "/":
+        takeInput(divide, calcArray);
+        break;
+      case "Backspace":
+        takeInput('backspace', calcArray);
+        break;
+      case "x":
+      case "X":
+      case "*":
+        takeInput(multiply, calcArray);
+        break;
+        case "Escape":
+          clearDisplay()
+          break;
+    }
+    updateDisplay(calcArray);
+  }
+
+});
