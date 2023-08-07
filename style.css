@@ -5,6 +5,8 @@
     max-width: 300px; /*FIXME:*/
     margin: 0 0 20px 0;
     padding: 5px 10px;
+    /* overflow: hidden; */
+    overflow:auto
 }
 
 .calc-content{
@@ -13,9 +15,11 @@
     padding: 40px 25px;
     border-radius: 10%;
 }
+.container.buttons{
+    display: flex;
+}
 .row{
     display:flex;
-    width:220px;
     /* background-color: yellow; */
     gap: 3px;
 }
@@ -23,7 +27,14 @@
 .row.a {
     display: flex;
     justify-content: space-between;
-    width: 220px;
+}
+.row.e{
+    padding-left: 56px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
 }
 
 button{
@@ -32,17 +43,20 @@ button{
     width: 45px;
     min-width: 45px;
     height: 45px;
-    border: 3px solid green;
+    border: 3px solid salmon;
     border-radius: 50%;
     padding: 2px;
+    background-color:rgb(52, 45, 45);
 }
-button.operator{
-    background-color: orange;
+.column button.operator{
+    background-color: red;
 }
 
-button#clear{
-    width: 50px;
+button#ac{
+    width: 100px;
+    border-radius: 100px;
 }
+
 
 
 

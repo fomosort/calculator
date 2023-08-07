@@ -92,7 +92,7 @@ function clearDisplay() {
 }
 
 //Button Event Listeners
-document.querySelector("button#clear").addEventListener("click", clearDisplay);
+document.querySelector("button#ac").addEventListener("click", clearDisplay);
 
 //FIXME:ONE function that checks valid button clicks
 
