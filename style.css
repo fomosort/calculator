@@ -1,7 +1,11 @@
+html{
+    background-color: rgb(52, 31, 31);
+}
 .display#main{
     font-size: 40px;
     font-family: monospace;
-    border: red 4px solid;
+    color:white;
+    border: rgb(255, 31, 31) 4px solid;
     max-width: 300px; /*FIXME:*/
     margin: 0 0 20px 0;
     padding: 5px 10px;
@@ -12,6 +16,7 @@
 }
 
 .calc-content{
+    color:white;
     background-color: rgb(15, 15, 15);
     max-width: 300px; /*FIXME:*/
     padding: 40px 25px;
@@ -51,15 +56,17 @@
 }
 
 button{
+    color:white;
     margin: 4px;
     font-size: 25px;
     width: 45px;
     min-width: 45px;
     height: 45px;
-    border: 3px solid salmon;
+    border: 3px solid rgb(134, 71, 64);
     border-radius: 50%;
     padding: 2px;
     background-color:rgb(52, 45, 45);
+    transition:all 0.07s
 }
 
 button:hover{
@@ -74,8 +81,23 @@ button:hover{
     background-color:rgb(77, 65, 65);
 }
 
+.pressed{
+    margin: 4px;
+    font-size: 25px;
+    width: 45px;
+    min-width: 45px;
+    height: 45px;
+    border: 4px solid rgb(253, 37, 13);
+    border-radius: 50%;
+    padding: 2px;
+    transform:translateY(4px)
+}
+
+
 .column button.operator{
-    background-color: red;
+    background-color: rgba(131, 36, 36, 0.614);
+    border: 3px solid rgb(113, 27, 17);
+
 }
 .column button.operator:hover{
     background-color: rgb(255, 58, 58);

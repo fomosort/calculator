@@ -101,6 +101,17 @@ function clearDisplay() {
   updateDisplay(calcArray);
 }
 
+function addTransition(){
+  this.classList.add("pressed")
+}
+
+function removeTransition(e){
+  // console.log(e);
+  if(e.propertyName !== 'transform') return;
+  console.log(e.propertyName);
+  this.classList.remove('pressed')
+}
+
 //Button Event Listeners
 document.querySelector("button#ac").addEventListener("click", clearDisplay);
 
@@ -117,8 +128,9 @@ document.querySelector("button#decimal").addEventListener("click", (e) => {
 const numberKeys = document.querySelectorAll(".number");
 numberKeys.forEach((numberKey) => {
   numberKey.addEventListener("click", (e) => {
-    takeInput(e.target.id, calcArray);
+    takeInput(e.target.id.slice(1), calcArray);
     updateDisplay(calcArray);
+    // numberKey.classList.add("pressed")
   });
 });
 //Equals button
@@ -131,7 +143,6 @@ document.querySelector("button#equals").addEventListener("click", () => {
   }
 });
 
-const test = document.querySelector("#add").id;
 
 document.querySelector("#add").addEventListener("click", (e) => {
   takeInput(add, calcArray);
@@ -157,29 +168,39 @@ document.querySelectorAll("button.operator").forEach((btn) =>
   })
 );
 
-const allKeys = document.getElementsByTagName("button");
+const allKeys = document.querySelectorAll('button')
+
+
 //Keyboard support
 window.addEventListener("keydown", (e) => {
   // console.log(e.key);
 
   //Check if key is a supported number
   if (Array.from(numberKeys).some((item) => item.innerHTML === e.key)) {
+    document.querySelector(`#n${e.key}`).classList.add('pressed')
     takeInput(e.key, calcArray);
     updateDisplay(calcArray);
   } else {
   //Check check other keys
+
     switch (e.key) {
       case ".":
         takeInput(e.key, calcArray);
+        document.querySelector(`#decimal`).classList.add('pressed')
         break;
       case "+":
         takeInput(add, calcArray);
+        document.querySelector(`#add`).classList.add('pressed')
         break;
       case "-":
         takeInput(subtract, calcArray);
+        document.querySelector(`#subtract`).classList.add('pressed')
+
         break;
       case "=":
       case "Enter":
+        document.querySelector(`#equals`).classList.add('pressed')
+
         if (execOperation(calcArray)) {
           updateDisplay(calcArray);
         } else {
@@ -190,20 +211,31 @@ window.addEventListener("keydown", (e) => {
         break;
       case "/":
         takeInput(divide, calcArray);
+        document.querySelector(`#divide`).classList.add('pressed')
+
         break;
       case "Backspace":
         takeInput('backspace', calcArray);
+        document.querySelector(`#backspace`).classList.add('pressed')
+
         break;
       case "x":
       case "X":
       case "*":
         takeInput(multiply, calcArray);
+        document.querySelector(`#multiply`).classList.add('pressed')
         break;
         case "Escape":
+          document.querySelector(`#ac`).classList.add('pressed')
+
           clearDisplay()
           break;
     }
     updateDisplay(calcArray);
   }
-
 });
+
+allKeys.forEach(key => {
+  key.addEventListener('click', addTransition);
+
+  key.addEventListener('transitionend', removeTransition)})
