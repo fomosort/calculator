@@ -1,20 +1,32 @@
 .display#main{
     font-size: 40px;
     font-family: monospace;
-    border: yellow 2px solid;
+    border: red 4px solid;
     max-width: 300px; /*FIXME:*/
     margin: 0 0 20px 0;
     padding: 5px 10px;
     /* overflow: hidden; */
-    overflow:auto
+    overflow:auto;
+    border-radius: 5px;
+    background-color: rgb(75, 50, 50);
 }
 
 .calc-content{
-    background-color: black;
+    background-color: rgb(15, 15, 15);
     max-width: 300px; /*FIXME:*/
     padding: 40px 25px;
-    border-radius: 10%;
+    border-radius: 20px;
 }
+
+.calc-case{
+    background-color: black;
+    max-width: 300px; /*FIXME:*/
+    padding: 15px 20px;
+    border-radius: 30px;
+    z-index: 0;
+}
+
+
 .container.buttons{
     display: flex;
 }
@@ -35,6 +47,7 @@
 .column {
     display: flex;
     flex-direction: column;
+    margin:0 0 0 5px
 }
 
 button{
@@ -48,16 +61,38 @@ button{
     padding: 2px;
     background-color:rgb(52, 45, 45);
 }
+
+button:hover{
+    margin: 4px;
+    font-size: 25px;
+    width: 45px;
+    min-width: 45px;
+    height: 45px;
+    border: 4px solid rgb(253, 37, 13);
+    border-radius: 50%;
+    padding: 2px;
+    background-color:rgb(77, 65, 65);
+}
+
 .column button.operator{
     background-color: red;
+}
+.column button.operator:hover{
+    background-color: rgb(255, 58, 58);
 }
 
 button#ac{
     width: 100px;
     border-radius: 100px;
+    background-color: rgb(125, 107, 107);
 }
 button#backspace{
     font-size: 16px;
+    background-color:rgb(125, 107, 107);
+}
+button#decimal{
+    font-size: 25px;
+    background-color:rgb(125, 107, 107);
 }
 
 
