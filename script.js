@@ -19,6 +19,11 @@ function divide(a, b) {
 //takes in input from button. tracks all numbers and operations in an array
 let calcArray = [""];
 function takeInput(buttonInput, calcArray) {
+  //Take Backspace as input
+  if (buttonInput === 'backspace'){
+    calcArray[calcArray.length - 1] = calcArray[calcArray.length - 1].slice(0,-1)
+    return
+  }
   if (typeof buttonInput === "function") {
     //Replace last index if last index isn't a number (meaning it's a function or '' empty string)
     if (!!isNaN(parseFloat(calcArray.slice(-1)))) {
@@ -136,6 +141,10 @@ document.querySelector("#multiply").addEventListener("click", (e) => {
 });
 document.querySelector("#divide").addEventListener("click", (e) => {
   takeInput(divide, calcArray);
+});
+//Backspace
+document.querySelector("#backspace").addEventListener("click", (e) => {
+  takeInput('backspace', calcArray);
 });
 
 //Operations Eventlistener

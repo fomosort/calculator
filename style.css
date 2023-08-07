@@ -56,6 +56,9 @@ button#ac{
     width: 100px;
     border-radius: 100px;
 }
+button#backspace{
+    font-size: 16px;
+}
 
 
 
