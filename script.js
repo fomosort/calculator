@@ -60,7 +60,7 @@ function execOperation(calcArray) {
   let result = calcArray[1](+calcArray[0], +calcArray[2]);
   //result becomes first element of array
   if (!isFinite(result)) return false;
-  if (result % 1 != 0) result = result.toFixed(6);
+  if (result % 1 != 0) result = parseFloat(result.toFixed(6));
   calcArray[2] = result;
   calcArray.splice(0, 2);
   amongUsSound()
@@ -75,10 +75,10 @@ function updateDisplay(calcArray) {
     if (typeof val === "function") {
       switch (val.name) {
         case "add":
-          operatorSymbol = "＋";
+          operatorSymbol = "+";
           break;
         case "subtract":
-          operatorSymbol = "﹣";
+          operatorSymbol = "-";
           break;
         case "multiply":
           operatorSymbol = "×";
