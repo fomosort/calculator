@@ -1,36 +1,90 @@
 html{
     background-color: rgb(52, 31, 31);
+    margin: 0 0 0 80px;
 }
 .display#main{
-    font-size: 40px;
+    font-size: 38px;
     font-family: monospace;
-    color:white;
-    border: rgb(255, 31, 31) 4px solid;
+    font-weight: 1000;;
+    -webkit-text-stroke-width: 2px ;
+    -webkit-text-stroke-color: black ;
+    color:rgb(255, 149, 0);
+    border: black 20px solid;
     max-width: 300px; /*FIXME:*/
-    margin: 0 0 20px 0;
-    padding: 5px 10px;
+    margin: 0 0 20px -80px;
+    padding: 20px 10px 20px;
+    height: 1.5em;
     /* overflow: hidden; */
     overflow:auto;
-    border-radius: 5px;
-    background-color: rgb(75, 50, 50);
+    border-radius: 30% 40px 40% 30%;
+    background-color: rgb(49, 91, 131);
+}
+
+.glimmer{
+
+        margin: -138px 0 50px -60px;
+        width: 16em;
+        height: 4em;
+        /* overflow: hidden; */
+        
+        border-radius: 40% 15% 50% 30%;
+        background-color: rgba(83, 118, 150, 0.879);
+}
+.glimmer#two{
+    margin: -108px 0 130px -20px;
+    width: 7em;
+    height: 2em;
+    background-color: rgba(170, 176, 182, 0.86);
+    border-radius: 40%;
+
 }
 
 .calc-content{
     color:white;
-    background-color: rgb(15, 15, 15);
-    max-width: 300px; /*FIXME:*/
-    padding: 40px 25px;
-    border-radius: 20px;
+    background-color: rgb(237, 119, 1);
+    max-width: 223px; /*FIXME:*/
+    padding: 40px 25px 40px 35px;
+    border-radius: 30% 30% 20% 20% ;;
+
 }
 
 .calc-case{
     background-color: black;
     max-width: 300px; /*FIXME:*/
-    padding: 15px 20px;
-    border-radius: 30px;
+    padding: 15px 0px 20px 20px;
+    border-radius: 30% 30% 20% 20% ;;
     z-index: 0;
+    display:flex
+    
 }
 
+.backpack{
+    flex:none;
+    background-color: rgb(237, 119, 1);
+    max-width: 300px; /*FIXME:*/
+    margin: 140px 0 0 0px;
+    width:25px;
+    height:220px;
+    padding: 15px 20px;
+    border-radius: 20% 40% 35% 20%;
+    border: 20px solid black;
+}
+
+.legs{
+    flex:none;
+    background-color: rgb(237, 119, 1);
+    max-width: 300px; /*FIXME:*/
+    margin: -110px 0 0 1px;
+    width:65px;
+    height:150px;
+    padding: 15px 20px;
+    border-radius: 0% 0% 40% 40%;
+    border: 20px solid black;
+    border-top: 0px 
+}
+.legs#right{
+    margin: -195px 0 0 177px;
+}
 
 .container.buttons{
     display: flex;
@@ -46,7 +100,7 @@ html{
     justify-content: space-between;
 }
 .row.e{
-    padding-left: 56px;
+    /* padding-left: 56px; */
 }
 
 .column {
@@ -62,7 +116,7 @@ button{
     width: 45px;
     min-width: 45px;
     height: 45px;
-    border: 3px solid rgb(134, 71, 64);
+    border: 4px solid rgb(125, 30, 20);
     border-radius: 50%;
     padding: 2px;
     background-color:rgb(52, 45, 45);
@@ -96,7 +150,7 @@ button:hover{
 
 .column button.operator{
     background-color: rgba(131, 36, 36, 0.614);
-    border: 3px solid rgb(113, 27, 17);
+    border: 5px solid rgb(77, 8, 1);
 
 }
 .column button.operator:hover{
