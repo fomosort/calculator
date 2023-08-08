@@ -257,3 +257,5 @@ allKeys.forEach((key) => {
   key.addEventListener("click", playRandSound);
   key.addEventListener("transitionend", removeTransition);
 });
+const uwu = document.querySelector('#uwu')
+document.querySelector('.heart').addEventListener('click', ()=> uwu.play())
