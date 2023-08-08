@@ -102,6 +102,8 @@ function updateDisplay(calcArray) {
 function clearDisplay() {
   calcArray = [""];
   updateDisplay(calcArray);
+  const audio = document.querySelector("#complete")
+  audio.play()
 }
 
 function addTransition() {
