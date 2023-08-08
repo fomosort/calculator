@@ -2,6 +2,12 @@ html{
     background-color: rgb(52, 31, 31);
     margin: 0 0 0 80px;
 }
+
+.calc-wrapper{
+    position: fixed;
+    z-index: 1;
+}
+
 .display#main{
     font-size: 38px;
     font-family: monospace;
