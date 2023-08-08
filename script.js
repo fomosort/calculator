@@ -19,7 +19,7 @@ function divide(a, b) {
 //takes in input from button. tracks all numbers and operations in an array
 let calcArray = [""];
 function takeInput(buttonInput, calcArray) {
-  playSound();
+  playRandSound();
 
   //Take Backspace as input
   if (buttonInput === "backspace") {
@@ -63,6 +63,7 @@ function execOperation(calcArray) {
   if (result % 1 != 0) result = result.toFixed(6);
   calcArray[2] = result;
   calcArray.splice(0, 2);
+  amongUsSound()
   return true;
 }
 
@@ -113,9 +114,15 @@ function removeTransition(e) {
   this.classList.remove("pressed");
 }
 
-function playSound() {
+function playRandSound() {
   const randNum = Math.ceil(Math.random() * 4);
   const sound = document.querySelector(`.sound#a${randNum}`);
+  sound.currentTime = 0;
+  sound.play();
+}
+
+function amongUsSound(){
+  const sound = document.querySelector(`.sound#amongus`);
   sound.currentTime = 0;
   sound.play();
 }
@@ -206,7 +213,7 @@ window.addEventListener("keydown", (e) => {
       case "=":
       case "Enter":
         document.querySelector(`#equals`).classList.add("pressed");
-        playSound();
+        playRandSound();
 
         if (execOperation(calcArray)) {
           updateDisplay(calcArray);
@@ -234,7 +241,7 @@ window.addEventListener("keydown", (e) => {
         break;
       case "Escape":
         document.querySelector(`#ac`).classList.add("pressed");
-        playSound();
+        playRandSound();
 
         clearDisplay();
         break;
@@ -247,6 +254,6 @@ window.addEventListener("keydown", (e) => {
 
 allKeys.forEach((key) => {
   key.addEventListener("click", addTransition);
-  key.addEventListener("click", playSound);
+  key.addEventListener("click", playRandSound);
   key.addEventListener("transitionend", removeTransition);
 });
